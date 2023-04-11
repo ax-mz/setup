@@ -2,13 +2,13 @@
 
 ######## Debian Desktop
 
-if [ $XDG_SESSION_DESKTOP != "gnome" ];
+if [[ $XDG_SESSION_DESKTOP != "gnome" ]];
 then
         echo "This script must run in Gnome environnement"
         exit 1
 fi
 
-if [ $UID != 0 ];
+if [[ $UID != 0 ]];
 then
 	echo "This script must be run as root"
 	exit 1
@@ -23,7 +23,7 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | 
 echo "deb https://download.sublimetext.com/ apt/stable/" > /etc/apt/sources.list.d/sublime-text.list
 
 # Packages to install:
-packages=(sudo bash-completion locate gnome-tweaks gnome-shell-extension-dashtodock curl vlc keepassxc sublime-text)
+packages=(sudo bash-completion locate gnome-tweaks gnome-shell-extension-dashtodock git curl vlc keepassxc sublime-text)
 
 apt -qq update && apt -qq upgrade -y
 apt -qq install ${packages[@]} -y
@@ -49,7 +49,7 @@ sed -i -e 's|^pref("browser.sessionstore.resume_from_crash".*|pref("browser.sess
 sed -i -e 's|^pref("browser.sessionstore.restore_on_demand".*|pref("browser.sessionstore.restore_on_demand", false);|' /usr/share/firefox-esr/browser/defaults/preferences/firefox.js
 
 ## Install extensions
-extensions=(ublock-origin i-dont-care-about-cookies privacy-badger17)
+extensions=(ublock-origin i-dont-care-about-cookies)
 prof_dir=$(ls /home/$user/.mozilla/firefox/ | grep "default-esr")
 for ext in ${extensions[@]};
 do
@@ -97,6 +97,7 @@ su -c "gsettings set org.gnome.shell favorite-apps \"['org.gnome.Nautilus.deskto
 
 # Never lock screen
 su -c "gsettings set org.gnome.desktop.session idle-delay '0'" $user
+su -c "gsettings set org.gnome.desktop.screensaver lock-enabled 'false'" $user
 
 su -c "gsettings set org.gnome.desktop.interface clock-show-weekday 'true'" $user
 
@@ -114,7 +115,7 @@ sed -i -e "s|^    #alias egrep.*|    alias egrep='fgrep --color=auto'|" /home/$u
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/list \"['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', '80067af7-16ba-4187-9e9c-826d8ac57e53']\"" $user
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/visible-name \"'Original'\"" $user
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/:80067af7-16ba-4187-9e9c-826d8ac57e53/visible-name \"'Aci'\"" $user
-# Aci
+# Aci (stolen from https://github.com/Gogh-Co/Gogh/blob/master/themes/Aci.yml)
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/:80067af7-16ba-4187-9e9c-826d8ac57e53/use-theme-colors 'false'" $user
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/default \"'80067af7-16ba-4187-9e9c-826d8ac57e53'\"" $user
 su -c "dconf write /org/gnome/terminal/legacy/profiles:/:80067af7-16ba-4187-9e9c-826d8ac57e53/palette \"['rgb(54,54,54)', 'rgb(255,8,131)', 'rgb(131,255,8)', 'rgb(255,131,8)', 'rgb(8,131,255)', 'rgb(131,8,255)', 'rgb(8,255,131)', 'rgb(182,182,182)', 'rgb(66,66,66)', 'rgb(255,30,142)', 'rgb(142,255,30)', 'rgb(255,142,30)', 'rgb(30,142,255)', 'rgb(142,30,255)', 'rgb(30,255,142)', 'rgb(194,194,194)']\"" $user
