@@ -2,12 +2,6 @@
 
 ######## Debian Desktop
 
-if [[ $XDG_SESSION_DESKTOP != "gnome" ]];
-then
-        echo "This script must run in Gnome environnement"
-        exit 1
-fi
-
 if [[ $UID != 0 ]];
 then
 	echo "This script must be run as root"
