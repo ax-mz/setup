@@ -20,8 +20,9 @@ echo "deb https://download.sublimetext.com/ apt/stable/" > /etc/apt/sources.list
 packages=(sudo bash-completion locate gnome-tweaks gnome-shell-extension-dashtodock git curl vlc keepassxc sublime-text)
 
 apt -qq update && apt -qq upgrade -y
+
+apt -qq purge --autoremove gnome-{documents,clocks,games,calendar,contacts,maps,sound-recorder,todo,music,weather} malcontent evolution cheese totem yelp rhythmbox libreoffice-draw libreoffice-impress shotwell -y
 apt -qq install ${packages[@]} -y
-apt -qq purge --autoremove gnome-games -y
 
 ##### Firefox config #####
 if [ ! -d /home/$user/.mozilla/ ];
