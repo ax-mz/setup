@@ -14,7 +14,7 @@ then
 	exit 1
 fi
 
-packages=(sudo bash-completion curl openssh-server)
+packages=(sudo bash-completion curl openssh-server git)
 
 apt -qq update && apt -qq upgrade -y
 apt -qq install ${packages[@]} -y
@@ -39,3 +39,5 @@ echo "alias shutdown='shutdown -h now'" >> /root/.bashrc
 
 source ~/.bashrc
 source /home/$user/.bashrc
+
+reboot
