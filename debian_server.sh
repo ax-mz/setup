@@ -2,19 +2,19 @@
 
 #### Debian Server
 
-if [ $XDG_SESSION_TYPE != "tty" ];
+if [[ $XDG_SESSION_TYPE != "tty" ]];
 then
         echo "This script must be run on a server"
         exit 1
 fi
 
-if [ $UID != 0 ];
+if [[ $UID != 0 ]];
 then
 	echo "This script must be run as root"
 	exit 1
 fi
 
-packages=(sudo bash-completion curl openssh-server git)
+packages=(sudo bash-completion curl openssh-server)
 
 apt -qq update && apt -qq upgrade -y
 apt -qq install ${packages[@]} -y
@@ -39,5 +39,3 @@ echo "alias shutdown='shutdown -h now'" >> /root/.bashrc
 
 source ~/.bashrc
 source /home/$user/.bashrc
-
-reboot
