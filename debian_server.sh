@@ -2,12 +2,6 @@
 
 #### Debian Server
 
-if [[ $XDG_SESSION_TYPE != "tty" ]];
-then
-        echo "This script must be run on a server"
-        exit 1
-fi
-
 if [[ $UID != 0 ]];
 then
 	echo "This script must be run as root"
