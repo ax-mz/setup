@@ -2,8 +2,7 @@
 
 #### Debian Server
 
-if [[ $UID != 0 ]];
-then
+if [[ $UID != 0 ]]; then
 	echo "This script must be run as root"
 	exit 1
 fi
@@ -14,7 +13,7 @@ apt -qq update && apt -qq upgrade -y
 apt -qq install ${packages[@]} -y
 
 # Adding non-root user to sudoers 
-user=$(grep ":1000:" /etc/passwd | cut -d: -f1)
+user=$(id -nu 1000)
 echo -e "\n$user\tALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # Red prompt for root
