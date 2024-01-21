@@ -29,6 +29,8 @@ systemctl restart ssh
 # Aliases
 echo -e "\nalias up='apt update && apt upgrade -y && apt autoremove -y'" >> /root/.bashrc
 echo "alias shutdown='shutdown -h now'" >> /root/.bashrc
+echo "alias ipw='curl https://ifconfig.me/ && echo '" >> /root/.bashrc
+echo "alias ipw='curl https://ifconfig.me/ && echo '" >> /home/$user/.bashrc
 
 source ~/.bashrc
 source /home/$user/.bashrc
